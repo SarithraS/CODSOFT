@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .calculator {
+      width: 300px;
+      border-radius: 10px;
+      background-color: #ffffff;
+      padding: 20px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      animation: slideIn 0.5s ease-in-out;
+    }
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    input[type="text"] {
+      width: 90%;
+      margin-bottom: 15px;
+      padding: 15px;
+      font-size: 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #989797;
+    }
+    button {
+      width: 60px;
+      height: 60px;
+      font-size: 20px;
+      margin: 5px;
+      cursor: pointer;
+      border: none;
+      border-radius: 50%;
+      background-color: #81cf84;
+      color: #ffffff;
+      transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+      transform: translateZ(0);
+    }
+    button:hover {
+      background-color: #7ffa85;
+      transform: translateY(-3px) translateZ(0); /* Add 3D effect on hover */
+    }
+    .special-buttons button {
+      background-color: #2196F3;
+    }
+    .special-buttons button:hover {
+      background-color: #0f5893;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="display" readonly>
+    <br>
+    <button onclick="appendToDisplay('1')">1</button>
+    <button onclick="appendToDisplay('2')">2</button>
+    <button onclick="appendToDisplay('3')">3</button>
+    <button onclick="appendToDisplay('+')">+</button>
+    <button onclick="appendToDisplay('-')">-</button>
+    <br>
+    <button onclick="appendToDisplay('4')">4</button>
+    <button onclick="appendToDisplay('5')">5</button>
+    <button onclick="appendToDisplay('6')">6</button>
+    <button onclick="appendToDisplay('*')">*</button>
+    <button onclick="appendToDisplay('/')">/</button>
+    <br>
+    <button onclick="appendToDisplay('7')">7</button>
+    <button onclick="appendToDisplay('8')">8</button>
+    <button onclick="appendToDisplay('9')">9</button>
+    <button onclick="clearDisplay()">C</button>
+    <button onclick="calculate()">=</button>
+    <br>
+    <button onclick="appendToDisplay('0')">0</button>
+    <button onclick="appendToDisplay('.')">.</button>
+    <button onclick="calculateScientific('Math.sqrt')" class="special-buttons">√</button>
+    <button onclick="calculateScientific('Math.pow')" class="special-buttons">x^y</button>
+    <button onclick="appendToDisplay('Math.PI')" class="special-buttons">π</button>
+  </div>
+
+  <script>
+    function appendToDisplay(value) {
+      document.getElementById('display').value += value;
+    }
+
+    function clearDisplay() {
+      document.getElementById('display').value = '';
+    }
+
+    function calculate() {
+      try {
+        const expression = document.getElementById('display').value;
+        const result = eval(expression);
+        document.getElementById('display').value = result;
+      } catch (error) {
+        document.getElementById('display').value = 'Error';
+      }
+    }
+
+    function calculateScientific(func) {
+      try {
+        const expression = document.getElementById('display').value;
+        const result = eval(`${func}(${expression})`);
+        document.getElementById('display').value = result;
+      } catch (error) {
+        document.getElementById('display').value = 'Error';
+      }
+    }
+  </script>
+</body>
+</html>
